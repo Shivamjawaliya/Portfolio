@@ -40,7 +40,7 @@ export default function Footer() {
             <div className="text-2xl font-bold gradient-text mb-4">&lt;SJ /&gt;</div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Full-stack developer building scalable, end-to-end web products — from
-              backend APIs to polished frontends. Based in Bhopal, India.
+              backend APIs to polished frontends. Based in Bengaluru, India.
             </p>
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, href, label }) => (
@@ -92,7 +92,7 @@ export default function Footer() {
                 <span className="w-3.5 h-3.5 rounded-full bg-primary/20 flex items-center justify-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 </span>
-                Bhopal, Madhya Pradesh, India
+                Bengaluru, Karnataka, India
               </p>
               <div className="flex items-center gap-2 mt-1">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />

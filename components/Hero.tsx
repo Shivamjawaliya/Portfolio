@@ -146,7 +146,7 @@ export default function Hero() {
           Building end-to-end products — from{" "}
           <span className="text-primary font-medium">scalable backends</span> to{" "}
           <span className="text-primary font-medium">polished frontends</span>,
-          with clean UI and reliable DevOps. Based in Bhopal, India.
+          with clean UI and reliable DevOps. Based in Bengaluru, India.
         </motion.p>
 
         {/* CTA Buttons */}

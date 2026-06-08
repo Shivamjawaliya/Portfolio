@@ -19,7 +19,7 @@ const work: Entry[] = [
     role: "Full Stack Developer",
     org: "Independent / Academic Projects",
     period: "Sept 2023 – Present",
-    location: "Bhopal, India",
+    location: "Bengaluru, India",
     type: "Full-time / Academic",
     bullets: [
       "Full Stack Developer with strong command of Data Structures and Algorithms",
@@ -52,7 +52,7 @@ const education: Entry[] = [
     role: "B.Tech – Electronics and Communication Engineering",
     org: "Indian Institute of Information Technology Bhopal",
     period: "Sept 2023 – 2027",
-    location: "Bhopal, Madhya Pradesh",
+    location: "Bengaluru, Karnataka",
     type: "Full-time",
     bullets: [
       "CGPA: 8.02 — consistent academic performance",

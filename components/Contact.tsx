@@ -40,8 +40,8 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Bhopal, Madhya Pradesh, India",
-    href: "https://maps.google.com/?q=Bhopal,India",
+    value: "Bengaluru, Karnataka, India",
+    href: "https://maps.google.com/?q=Bengaluru,India",
     color: "#8B5CF6",
   },
 ];

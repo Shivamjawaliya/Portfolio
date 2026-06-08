@@ -83,7 +83,7 @@ export default function About() {
                 className="absolute -bottom-4 -right-4 glass border border-primary/30 rounded-2xl px-4 py-2 flex items-center gap-2"
               >
                 <MapPin size={14} className="text-primary" />
-                <span className="text-sm font-medium">Bhopal, India</span>
+                <span className="text-sm font-medium">Bengaluru, India</span>
               </motion.div>
 
               {/* Floating badge – LeetCode */}
@@ -135,7 +135,7 @@ export default function About() {
             <motion.div {...fadeUp(0.4)} className="flex flex-wrap gap-3">
               {[
                 { icon: GraduationCap, text: "B.Tech ECE — IIIT Bhopal (2023–2027)" },
-                { icon: MapPin, text: "Bhopal, Madhya Pradesh" },
+                { icon: MapPin, text: "Bengaluru, Karnataka" },
                 { icon: Trophy, text: "CGPA: 8.02" },
               ].map(({ icon: Icon, text }) => (
                 <div
