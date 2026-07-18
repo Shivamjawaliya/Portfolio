@@ -8,7 +8,7 @@ export default function LoadingScreen() {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-[100] bg-[#0a0a0f] flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[100] bg-[var(--surface)] flex flex-col items-center justify-center"
     >
       {/* Logo */}
       <motion.div
@@ -17,7 +17,7 @@ export default function LoadingScreen() {
         transition={{ duration: 0.5, type: "spring" }}
         className="text-5xl font-bold gradient-text mb-8 font-poppins"
       >
-        &lt;SJ /&gt;
+        Shivam Jawaliya
       </motion.div>
 
       {/* Spinner rings */}
@@ -50,7 +50,7 @@ export default function LoadingScreen() {
       {/* Progress bar */}
       <div className="mt-6 w-48 h-0.5 bg-white/10 rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-primary to-blue-500 rounded-full"
+          className="h-full bg-gradient-to-r from-primary to-sky-500 rounded-full"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: 2, ease: "easeInOut" }}

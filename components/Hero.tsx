@@ -1,227 +1,217 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { Github, Linkedin, Mail, Download, ArrowDown, Code2 } from "lucide-react";
+import { Github, Linkedin, Mail, Download, ExternalLink } from "lucide-react";
 import { SiLeetcode } from "react-icons/si";
+import Image from "next/image";
 
 const RESUME_URL =
-  "https://drive.google.com/file/d/1uOPR-2YMa0f2q3qic-TsW2sO524RUVD0/view?usp=sharing";
+  "https://drive.google.com/file/d/1QE0KuKuQbpnp4Hshe6nbp1_rDhLhT8-x/view?usp=sharing";
 
 const socials = [
-  { icon: Github, href: "https://github.com/Shivamjawaliya", label: "GitHub" },
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/shivam-jawaliya-9629372b6/",
-    label: "LinkedIn",
-  },
-  { icon: Mail, href: "mailto:jawaliya7060@gmail.com", label: "Email" },
-  { icon: SiLeetcode, href: "https://leetcode.com/u/Shivam_Jawaliya/", label: "LeetCode" },
+  { icon: Github,     href: "https://github.com/Shivamjawaliya",                      label: "GitHub"   },
+  { icon: Linkedin,   href: "https://www.linkedin.com/in/shivam-jawaliya-9629372b6/", label: "LinkedIn" },
+  { icon: Mail,       href: "mailto:jawaliya7060@gmail.com",                           label: "Email"    },
+  { icon: SiLeetcode, href: "https://leetcode.com/u/Shivam_Jawaliya/",                label: "LeetCode" },
 ];
 
-// Floating orb component
-function Orb({
-  className,
-  delay = 0,
-}: {
-  className: string;
-  delay?: number;
-}) {
+function Word({ word, delay, reduced }: { word: string; delay: number; reduced: boolean }) {
   return (
-    <motion.div
-      className={`absolute rounded-full blur-3xl opacity-20 ${className}`}
-      animate={{
-        scale: [1, 1.2, 1],
-        opacity: [0.15, 0.25, 0.15],
-      }}
-      transition={{
-        duration: 6,
-        repeat: Infinity,
-        delay,
-        ease: "easeInOut",
-      }}
-    />
-  );
-}
-
-// Particle dot
-function Particle({ style }: { style: React.CSSProperties }) {
-  return (
-    <motion.div
-      className="absolute w-1 h-1 rounded-full bg-primary/40"
-      style={style}
-      animate={{ y: [-10, 10, -10], opacity: [0.3, 0.8, 0.3] }}
-      transition={{
-        duration: 4 + Math.random() * 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay: Math.random() * 3,
-      }}
-    />
+    <motion.span
+      className="inline-block mr-[0.22em]"
+      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 40, rotateX: 90 }}
+      animate={reduced  ? { opacity: 1 } : { opacity: 1, y: 0, rotateX: 0 }}
+      transition={reduced
+        ? { duration: 0.4, delay }
+        : { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {word}
+    </motion.span>
   );
 }
 
 export default function Hero() {
-  const particles = Array.from({ length: 30 }, (_, i) => ({
-    id: i,
-    style: {
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-    },
-  }));
+  const reduced = useReducedMotion() ?? false;
+  const { scrollY } = useScroll();
+
+  const textY  = useTransform(scrollY, [0, 600], [0, reduced ? 0 : -50]);
+  const photoY = useTransform(scrollY, [0, 600], [0, reduced ? 0 : -80]);
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg"
-    >
-      {/* Background orbs */}
-      <Orb className="w-96 h-96 bg-cyan-500 -top-20 -left-20" delay={0} />
-      <Orb className="w-80 h-80 bg-blue-600 top-1/3 -right-20" delay={2} />
-      <Orb className="w-64 h-64 bg-purple-600 bottom-20 left-1/4" delay={4} />
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 50% at 30% 50%, rgba(6,182,212,0.08) 0%, transparent 70%)",
+        }}
+      />
 
-      {/* Particles */}
-      {particles.map((p) => (
-        <Particle key={p.id} style={p.style} />
-      ))}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_440px] gap-12 xl:gap-20 items-center min-h-screen py-24">
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/30 text-primary text-sm font-medium mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          Available for opportunities
-        </motion.div>
-
-        {/* Greeting */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4"
-        >
-          Hi, I&apos;m{" "}
-          <span className="gradient-text">Shivam Jawaliya</span>
-        </motion.h1>
-
-        {/* Typewriter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl sm:text-3xl font-semibold text-gray-300 mb-6 h-12 flex items-center justify-center"
-        >
-          <span className="text-primary mr-3">&gt;</span>
-          <TypeAnimation
-            sequence={[
-              "Full Stack Developer",
-              2000,
-              "React Developer",
-              2000,
-              "Node.js Developer",
-              2000,
-              "Problem Solver",
-              2000,
-              "LeetCode Knight 🏅",
-              2000,
-            ]}
-            wrapper="span"
-            speed={50}
-            repeat={Infinity}
-          />
-        </motion.div>
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-        >
-          Building end-to-end products — from{" "}
-          <span className="text-primary font-medium">scalable backends</span> to{" "}
-          <span className="text-primary font-medium">polished frontends</span>,
-          with clean UI and reliable DevOps. Based in Bengaluru, India.
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-        >
-          <motion.a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(6,182,212,0.5)" }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-8 py-3.5 bg-primary hover:bg-primary-600 text-white font-semibold rounded-xl transition-all duration-300 glow-cyan-sm"
-          >
-            <Code2 size={18} />
-            View My Work
-          </motion.a>
-
-          <motion.a
-            href={RESUME_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-8 py-3.5 glass border border-primary/40 text-primary hover:bg-primary/10 font-semibold rounded-xl transition-all duration-300"
-          >
-            <Download size={18} />
-            Download Resume
-          </motion.a>
-        </motion.div>
-
-        {/* Social Icons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex items-center justify-center gap-4 mb-16"
-        >
-          {socials.map(({ icon: Icon, href, label }) => (
-            <motion.a
-              key={label}
-              href={href}
-              target={href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              aria-label={label}
-              whileHover={{ scale: 1.2, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-3 rounded-xl glass border border-white/10 text-gray-400 hover:text-primary hover:border-primary/50 transition-all duration-300"
+          {/* LEFT: Text */}
+          <motion.div style={{ y: textY }} className="flex flex-col items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/25 text-primary text-sm font-medium mb-8"
             >
-              <Icon size={20} />
-            </motion.a>
-          ))}
-        </motion.div>
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              Open to opportunities
+            </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="flex flex-col items-center gap-2 text-gray-500 text-sm"
-        >
-          <span>Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowDown size={18} className="text-primary" />
+            <div style={{ perspective: "900px" }} className="mb-3 w-full">
+              <h1 className="text-5xl sm:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight">
+                <span className="block text-[var(--fg)]">
+                  {["Hi!", "I'm"].map((w, i) => (
+                    <Word key={w} word={w} delay={i * 0.08} reduced={reduced} />
+                  ))}
+                </span>
+                <span className="block gradient-text">
+                  {["Shivam", "Jawaliya"].map((w, i) => (
+                    <Word key={w} word={w} delay={0.16 + i * 0.08} reduced={reduced} />
+                  ))}
+                </span>
+              </h1>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.42 }}
+              className="text-xl sm:text-2xl font-semibold text-[var(--fg-2)] mb-5 flex items-center gap-2"
+            >
+              <span className="text-primary">&gt;</span>
+              <TypeAnimation
+                sequence={[
+                  "Full-Stack Developer. Problem Solver.", 3000,
+                  "React & Next.js Engineer.",             2000,
+                  "Node.js Backend Developer.",            2000,
+                  "LeetCode Knight 🏅 — Rating 1881.",    2500,
+                ]}
+                wrapper="span"
+                speed={55}
+                repeat={Infinity}
+              />
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.54 }}
+              className="text-[var(--fg-3)] text-base sm:text-lg leading-relaxed max-w-lg mb-10"
+            >
+              Full-stack engineering with a focus on craft. Building scalable web products
+              using <span className="text-[var(--fg)] font-medium">Next.js</span> and{" "}
+              <span className="text-[var(--fg)] font-medium">Node.js</span> — from backend
+              architecture to polished UIs and DevOps.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 18, delay: 0.66 }}
+              className="flex flex-wrap gap-3 mb-10"
+            >
+              <motion.a
+                href="#projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="inline-flex items-center gap-2 px-7 py-3 bg-primary hover:bg-primary-600 text-white font-semibold rounded-xl text-sm transition-colors duration-300"
+              >
+                View my work <ExternalLink size={15} />
+              </motion.a>
+
+              <motion.a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="inline-flex items-center gap-2 px-7 py-3 border border-[var(--bd-3)] hover:border-primary/50 text-[var(--fg-2)] hover:text-[var(--fg)] font-semibold rounded-xl text-sm transition-all duration-300"
+              >
+                Resume <Download size={15} />
+              </motion.a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.78 }}
+              className="flex items-center gap-3"
+            >
+              {socials.map(({ icon: Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("mailto") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  whileHover={{ scale: 1.2, y: -3 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="p-2.5 rounded-xl border border-[var(--bd-2)] text-[var(--fg-4)] hover:text-primary hover:border-primary/40 transition-all duration-300"
+                >
+                  <Icon size={19} />
+                </motion.a>
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
+
+          {/* RIGHT: Rectangular profile photo */}
+          <motion.div
+            style={{ y: photoY }}
+            className="flex justify-center items-center"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="relative w-full max-w-[400px]"
+            >
+              <div className="relative rounded-2xl">
+                <div
+                  data-profile-image-anchor="hero"
+                  className="relative rounded-2xl overflow-hidden z-10"
+                >
+                  <Image
+                    src="/profile.jpg"
+                    alt="Shivam Jawaliya"
+                    width={400}
+                    height={500}
+                    className="w-full object-cover object-top opacity-0"
+                    style={{ aspectRatio: "4/5" }}
+                    priority
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+        </div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-[var(--fg-5)] text-xs"
+      >
+        <span className="tracking-widest uppercase">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-px h-8 bg-gradient-to-b from-primary/60 to-transparent"
+        />
+      </motion.div>
     </section>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon, Menu, X, FileText } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -12,6 +12,8 @@ const navLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
+
+const RESUME_URL = "https://drive.google.com/file/d/1QE0KuKuQbpnp4Hshe6nbp1_rDhLhT8-x/view?usp=sharing";
 
 interface NavbarProps {
   darkMode: boolean;
@@ -53,7 +55,7 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "glass-dark shadow-lg shadow-black/20"
+          ? "bg-[var(--nav-glass)] backdrop-blur-sm border-b border-[var(--bd-1)]"
           : "bg-transparent"
       }`}
     >
@@ -99,11 +101,23 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
 
         {/* Right controls */}
         <div className="flex items-center gap-3">
+          {/* Resume link */}
+          <motion.a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            className="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium border border-primary/30 text-primary hover:bg-primary/10 rounded-lg transition-all"
+          >
+            <FileText size={14} /> Resume
+          </motion.a>
+
           <motion.button
             onClick={toggleDarkMode}
             whileHover={{ scale: 1.1, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
-            className="p-2 rounded-lg glass text-gray-400 hover:text-primary transition-colors"
+            className="p-2 rounded-lg border border-[var(--bd-2)] text-[var(--fg-4)] hover:text-primary transition-colors"
             aria-label="Toggle theme"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -151,6 +165,21 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
                   </button>
                 </motion.li>
               ))}
+              <motion.li
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+              >
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+                >
+                  <FileText size={14} /> Resume
+                </a>
+              </motion.li>
             </ul>
           </motion.div>
         )}
