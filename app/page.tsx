@@ -54,9 +54,9 @@ export default function Home() {
         <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode((d) => !d)} />
         <Hero />
         <About />
+        <Experience />
         <Skills />
         <Projects />
-        <Experience />
         <Contact />
         <Footer />
       </div>

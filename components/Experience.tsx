@@ -76,14 +76,14 @@ const education: Entry[] = [
   },
 ];
 
-const certifications = [
-  {
-    title: "Google Advanced Machine Learning Specialization",
-    issuer: "Google",
-    desc: "Trained and deployed deep learning models using TensorFlow and Keras",
-    emoji: "🎓",
-  },
-];
+// const certifications = [
+//   {
+//     title: "Google Advanced Machine Learning Specialization",
+//     issuer: "Google",
+//     desc: "Trained and deployed deep learning models using TensorFlow and Keras",
+//     emoji: "🎓",
+//   },
+// ];
 
 function TimelineEntry({ entry, index, last }: { entry: Entry; index: number; last: boolean }) {
   return (
@@ -226,7 +226,7 @@ export default function Experience() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Certifications */}
+        {/* Certifications
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -251,7 +251,7 @@ export default function Experience() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
