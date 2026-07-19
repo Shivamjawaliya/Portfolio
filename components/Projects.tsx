@@ -25,7 +25,7 @@ const projects: Project[] = [
     tags: ["React", "TypeScript", "Node.js", "MongoDB", "REST API", "OAuth", "CI/CD"],
     category: "Full Stack",
     github: "https://github.com/Shivamjawaliya",
-    demo: "https://coinfinex.vercel.app/",
+    demo: "https://coinfinex-app.vercel.app/",
     year: "2024",
     images: ["/projects/coinfinex-1.png", "/projects/coinfinex-2.png", "/projects/coinfinex-3.png"],
   },
